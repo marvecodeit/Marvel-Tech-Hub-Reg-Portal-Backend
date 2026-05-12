@@ -9,9 +9,9 @@ const app = express();
 
 //Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://marveltechhub.vercel.app/',
+  origin: process.env.CLIENT_URL || 'https://marveltechhub.vercel.app',
   credentials: true
-}));
+}))
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes)
