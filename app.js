@@ -16,8 +16,20 @@ app.use(cookieParser());
 
 // 2. CORS NEXT (important for cookies + frontend)
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://marveltechhub.vercel.app',
-  credentials: true
+  origin: (origin, callback) => {
+    const allowed = [
+      'https://marveltechhub.vercel.app',
+      'http://localhost:5173',
+      'http://localhost:3000',
+    ];
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 // 3. Routes LAST
